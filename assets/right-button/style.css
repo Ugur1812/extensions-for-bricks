@@ -1,0 +1,78 @@
+.efb-right-button-wrapper {
+  /*Variables*/
+  --efb-rb-extended-width: 400px;
+  --efb-rb-collapsed-width: 80px;
+
+  position: fixed;
+  width: auto;
+
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  display: flex;
+  align-items: end;
+  z-index: 999;
+  gap: 0px;
+}
+.efb-right-button-wrapper.efb-right {
+  right: 0;
+}
+.efb-right-button-wrapper.efb-left {
+  left: 0;
+}
+
+/*For button element*/
+.efb-right-button-wrapper > .efb-right-button {
+  display: inline-flex;
+  align-items: stretch; /*CHANGED --> Changed, so that all icon and container wrapper takes all available vertical space. We could also remove this line altogether as by default it's set to "normal", which behaves as "stretch" */
+  flex-wrap: nowrap;
+  width: var(--efb-rb-extended-width);
+  position: relative;
+}
+.efb-right-button-wrapper.efb-right > .efb-right-button {
+  transition: right 250ms ease-in;
+  right: calc(
+    calc(var(--efb-rb-extended-width) - var(--efb-rb-collapsed-width)) * -1
+  );
+}
+.efb-right-button-wrapper.efb-left > .efb-right-button {
+  transition: left 250ms ease-in;
+  flex-direction: row-reverse;
+  left: calc(
+    calc(var(--efb-rb-extended-width) - var(--efb-rb-collapsed-width)) * -1
+  );
+}
+
+/*When user hover over the button, the button get extended or when user toogles the "expanded" toggle in builder*/
+.efb-right-button-wrapper.efb-right > .efb-right-button:hover,
+.efb-right-button-wrapper.efb-right.efb-expanded > .efb-right-button {
+  right: 0;
+}
+.efb-right-button-wrapper.efb-left > .efb-right-button:hover,
+.efb-right-button-wrapper.efb-left.efb-expanded > .efb-right-button {
+  left: 0;
+}
+
+/*For icon wrapper to be same widh as collapsed width*/
+.efb-right-button-wrapper .efb-right-button_icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--efb-rb-collapsed-width);
+
+  flex-shrink: 0; /*ADDED --> Prevents the icon wrapper to shrink, if the text is longer than space */
+}
+
+/*For text element*/
+.efb-right-button-wrapper .efb-right-button_content-wrapper {
+  white-space: nowrap;
+  /*padding-right: 20px;*/
+  text-align: center;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+
+  flex-grow: 1; /*ADDED --> Enables us for element to be as wide as possible, to take all remaining space*/
+}
